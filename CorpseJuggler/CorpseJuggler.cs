@@ -8,7 +8,7 @@ namespace CorpseJuggler
     public class CorpseJuggler : MonoBehaviour
     {
 #pragma warning disable IDE0051 // Remove unused private members
-        public const string modVersion = "1.0.0";
+        public const string modVersion = "1.0.1";
         public const string repositoryOwner = "Daioutzu";
         public const string repositoryName = "LLBMM-CorpseJuggler";
 #pragma warning restore IDE0051
@@ -91,10 +91,6 @@ namespace CorpseJuggler
         void Update()
         {
             ModMenuInit();
-            if (GameObject.Find("AdvancedTraining"))
-            {
-                return;
-            }
             GetGamePad();
 
             bool selectPressed = (gamePad?.center1.justPressed ?? false) && gamePadenableCorpseSpawner == true;
@@ -147,24 +143,6 @@ namespace CorpseJuggler
             else if (Mathf.Abs(gamePad?.rightStick.value.y ?? 0) > DEAD_ZONE)
             {
                 OnCursorMoveVert?.Invoke(gamePad.rightStick.value.y, true);
-            }
-        }
-
-        const int GUI_HEIGHT = 1080;
-        const int GUI_WIDTH = 1920;
-        void OnGUI()
-        {
-            if (GameObject.Find("AdvancedTraining"))
-            {
-                GUITools.ScaleGUIToViewPort();
-                GUIStyle label = new GUIStyle(GUI.skin.box)
-                {
-                    fontSize = 14,
-                    alignment = TextAnchor.MiddleLeft,
-                    wordWrap = true,
-                };
-                int height = 60;
-                GUI.Label(new Rect(0, GUI_HEIGHT - height, 390, height), $"Incompatible Mod \"AdvancedTraining - v1.3b\" Detected.\nDisabling \"CorpseJuggler\"", label);
             }
         }
 
